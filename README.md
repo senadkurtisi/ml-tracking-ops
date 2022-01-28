@@ -20,7 +20,7 @@ compare different experiments and visualize different metrics
 ## Simplest form of tracking runs
 
 Below we can see an example of how we can track an experiment in PyTorch
-```
+```python
 
 from ml_tracking_ops.experiment.logger import ExperimentLogger
 
@@ -60,7 +60,7 @@ ML Tracking Ops enables users to run a hyperparameter sweep for their machine le
 This is relatively easy to do since all you need is definining a simple configuration file and an argument parser.
 </b>
 After defining those two things we can start the hyperparameter sweep with a simple command
-```
+```bash
 ml-tracking-ops --run_sweep=True --logdir=runs
 ```
 
@@ -90,7 +90,7 @@ This file is used to explain:
 **This file must be named "experiment_cfg.json"**</br>
 Below we can see an example of the configuration file. The JSON object keys `main_script_name`, `max_runs`, `hyperparameters` and `early_stopping` must be present. 
 
-```
+```json
 
 {
     "main_script_name": "train_script.py",
@@ -142,7 +142,7 @@ This means that in order to use the exact sampled values of these hyperparameter
 
 Below we can see an exaple of this argument parser. This parser was designed in order to be able to accept hyperparameters defined in the `experiment_cfg.json` example above.
 
-```
+```python
 
 from argparse import ArgumentParser
 
@@ -163,7 +163,7 @@ config = parser.parse_args()
 
 We can start the ML Tracking Ops web app by running a simple command
 
-```
+```bash
 ml-tracking-ops --logdir=runs
 ```
 
