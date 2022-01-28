@@ -215,7 +215,7 @@ This table contains description of every training run started during the sweep. 
 #### **A metric chart**
 As we can see below, on this chart we can see the selected metric for every run that is present on the *current* page of the table. As we can see below `EarlyStopping` event was triggered for some the runs present on the current page.
 <p align="left">
-  <img src="imgs\metric_chart_sweeps.PNG" width="490px" height="375px"/>
+  <img src="imgs\metric_chart_sweeps.png" width="490px" height="375px"/>
 </p>
 
 
@@ -224,9 +224,15 @@ As we can see below, on this chart we can see the selected metric for every run 
 * Here is a short demo of usage of [Experiments](#experiments-section) tab
 
 
+https://user-images.githubusercontent.com/19266082/151616781-2aef9fec-5bb9-4c22-9823-553e95bf34c4.mp4
+
 
 
 * Here is a short demo of usage of [Sweeps](#sweeps-section) tab
+
+
+https://user-images.githubusercontent.com/19266082/151616800-91797e43-fa2f-470d-a0b6-52e29e3ab11b.mp4
+
 
 
 ## An Important Note
