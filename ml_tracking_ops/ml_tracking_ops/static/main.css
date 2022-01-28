@@ -1,0 +1,427 @@
+/* General setting */
+* {
+  margin: 0;
+  padding: 0;
+
+  font-family: "Roboto";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --figureBackgroundColor: #f5f3e8;
+  --sectionColor: #f5f3e8;
+  --itemTextColor: #3f3e41;
+  --headerColor: #939fa1;
+
+  --hoveredBtnColor: #f7fafa;
+  --focusedBtnColor: rgba(213, 217, 217, 0.5);
+}
+
+table {
+  font-weight: lighter;
+}
+tr {
+  padding: 5px;
+}
+th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  text-align: left;
+
+  width: 150px;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+/* Vertically scrollable container */
+div.scroll {
+  height: 92.5vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Header section and it's elements */
+header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  text-align: center;
+  font-weight: bold;
+  background-color: var(--headerColor);
+
+  width: 100%;
+  height: 7.5vh;
+}
+
+#logo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+
+  font-size: large;
+  font-weight: 500;
+  font-size: 1.4em;
+
+  width: 25%;
+}
+
+#logo > a {
+  text-decoration: none;
+  color: var(--sectionColor);
+}
+
+/* Navigation bar and it's elements */
+#navbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  align-items: center;
+  width: 30%;
+  gap: 5px;
+}
+
+.nav-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* For making the selected tab underline visible */
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: none;
+
+  height: 100%;
+  padding: 10px 20px;
+
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--figureBackgroundColor);
+}
+
+.active-tab {
+  border-style: none none solid none;
+  border-width: 6.5px;
+  border-color: var(--sectionColor);
+}
+
+#filler {
+  width: 70%;
+}
+
+/* Main section and it's elements */
+
+/* Main section outer wrapper */
+#main-outer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  height: 92.5vh;
+}
+
+/* Sidebar */
+#sidebar {
+  width: 20%;
+  height: 92.5vh;
+  background-color: var(--sectionColor);
+}
+
+.sidebar-title-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+
+  width: center;
+  height: auto;
+
+  margin-top: 10px;
+}
+
+.sidebar-title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+
+  height: 35px;
+  width: 50%;
+  margin: 0;
+  padding: 0;
+
+  border-bottom: 1px solid var(--headerColor);
+}
+
+.sidebar-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: left;
+
+  padding: 5px 5px 5px 10px;
+  width: 100%;
+}
+
+.sidebar-item-text {
+  display: flex;
+  flex: 1;
+  align-items: center;
+
+  font-weight: lighter;
+  color: var(--itemTextColor);
+  height: 40px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-item-text > p {
+  text-align: left;
+}
+
+/* Elements for selecting the experiment(s) in any manner */
+.experiment-select {
+  height: 15px;
+  width: 17.5%;
+}
+.experiment-select:hover {
+  cursor: pointer;
+}
+
+.check-experiment {
+  padding-left: 10px;
+}
+
+/* Main section inner wrapper */
+#main-inner {
+  width: 80%;
+  height: 92.5vh;
+  background-color: white;
+}
+
+#header-text {
+  color: white;
+  font-size: 1.1em;
+  height: 75px;
+}
+
+.tab-title {
+  /* General descriptor of the active tab */
+  font-weight: lighter;
+  font-size: 1.2em;
+
+  padding-top: 20px;
+  padding-left: 50px;
+}
+
+#main-content-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  padding: 20px 50px;
+  padding-right: 20px;
+}
+
+/* Experiments page charts */
+.experiment-chart {
+  padding: 10px 20px;
+  width: 40%;
+}
+
+.experiment-metric-chart {
+  background-color: white;
+  height: 300px !important;
+}
+
+/* Sweep chart display wrapper */
+#metric-display {
+  width: 45%;
+  padding: 10 30px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+#sweep-chart-container {
+  width: 100% !important;
+  height: 600px !important;
+}
+
+#sweep-metric-chart {
+  height: 350px !important;
+}
+
+/* Choosing a metric to display */
+#metric-choice-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1em;
+
+  width: 100%;
+  padding: 20px 30px;
+}
+
+select {
+  width: 12.5em;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+select:focus {
+  outline: 0;
+  border-color: var(--headerColor);
+  box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+}
+
+select:hover,
+option:hover {
+  cursor: pointer;
+}
+
+option {
+  font-weight: lighter;
+}
+
+/* Sweep summary section */
+#sweep-summary-container {
+  /* Wrapper */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  width: 45%;
+  padding: 10px 20px;
+  margin-left: auto;
+}
+
+#sweep-summary-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 40px;
+
+  font-weight: lighter;
+  background-color: var(--sectionColor);
+}
+
+#sweep-summary-body {
+  width: 100%;
+  height: 350px;
+
+  font-weight: lighter;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sweep-config-item {
+  /* A single element of sweep summary body */
+  height: 50px;
+  padding: 5px;
+  margin: 0 10px;
+  border-bottom: 1px dotted var(--headerColor);
+}
+
+.sweep-keys-container {
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
+/* Description of hyperparameter samplers */
+.hyperparam-desc-cell-title {
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.hyperparam-desc-cell {
+  padding-bottom: 2px;
+  padding-right: 5px;
+  line-height: 25px;
+}
+
+.hyperparam-desc-sampler {
+  white-space: nowrap;
+  overflow-x: auto;
+  width: 300px;
+}
+
+/* Container for sampled hyperparameter combinations */
+#runs-desc-outer {
+  margin: 20px 50px;
+  margin-right: auto;
+}
+#runs-desc-inner {
+  overflow: auto;
+  white-space: nowrap;
+  height: auto;
+  width: 1000px;
+}
+
+#runs-desc-title {
+  width: 300px;
+  padding: 10px 0;
+  margin-bottom: 10px;
+
+  font-weight: bold;
+  border-bottom: 1px solid #939fa1;
+}
+
+.run-desc-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+
+  width: 150px;
+}
+
+/* For navigating through sampled runs */
+.run-nav-btn {
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid var(--headerColor);
+
+  text-align: center;
+  font-size: 0.8em;
+  line-height: 25px;
+
+  width: 75px;
+  margin-top: 10px;
+  padding: 0 10px;
+
+  opacity: 1;
+  cursor: pointer;
+  background-color: white;
+}
+
+.run-nav-btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.run-nav-btn:hover:enabled {
+  background-color: var(--hoveredBtnColor);
+}
+
+.run-nav-btn:focus:enabled {
+  outline: 0;
+  border-color: var(--headerColor);
+  box-shadow: var(--focusedBtnColor) 0 2px 5px 0;
+}

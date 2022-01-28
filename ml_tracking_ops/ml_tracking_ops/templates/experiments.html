@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block sidebar_content %}
+    <div class="sidebar-title-wrapper">
+        <div class="sidebar-title">Experiment list</div>
+    </div>
+
+    {% for experiment_id in experiment_ids %}
+    <div class="sidebar-item">
+        <input type="checkbox" name="experiment-choice" value="{{ experiment_id }}" class="check-experiment experiment-select">
+        <input type="radio" value="{{ experiment_id }}" class="radio-experiment experiment-select">
+        <div class="sidebar-item-text" data-tooltip="{{ experiment_id }}">{{ experiment_id }}</div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="tab-title" id="experiments-title">Experiment Logs</div>
+    <div id="main-content-container">
+        {% for metric_name in all_metrics %}
+            <div class="experiment-chart">
+                <canvas class="experiment-metric-chart" data-metric="{{ metric_name }}"></canvas>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block page_script %}
+    <script src="{{ url_for('static', filename='js/experiments.js') }}" defer></script>
+{% endblock %}

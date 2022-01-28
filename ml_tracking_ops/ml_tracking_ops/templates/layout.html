@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    
+    <title>ML Track</title>
+</head>
+<body>
+    <!-- Application header -->
+    <header id="main-header">
+        <div id="logo">
+            <a href="{{ url_for('home') }}">ML Tracking Ops</a>
+        </div>
+        <div id="navbar">
+            <a id="nav-experiments" class="nav-item" href="{{ url_for('experiments') }}">Experiments</a>
+            <a id="nav-sweeps" class="nav-item" href="{{ url_for('sweeps') }}">Sweeps</a>
+        </div>
+        <!-- Used for completing the header -->
+        <div id="filler"></div>
+    </header>
+    
+    <!-- Container for the main window -->
+    <div id="main-outer">
+        <!-- Sidebar container -->
+        <div id="sidebar" class="scroll">
+            {% block sidebar_content %}{% endblock %}
+        </div>
+        <!-- Main window inner container -->
+        <div id="main-inner" class="scroll">
+            <div class="tab-title">
+                {% block tab_title %}{% endblock %}
+            </div>
+            {% block main_content %}{% endblock %}
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {% block page_script %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/default.js') }}" defer></script>
+</body>
+</html>

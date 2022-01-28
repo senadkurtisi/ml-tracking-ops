@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block sidebar_content %}
+    <div class="sidebar-title-wrapper">
+        <div class="sidebar-title">Sweep list</div>
+    </div>
+
+    {% for sweep_dir in sweep_dirs %}
+    <div class="sidebar-item">
+        <input type="radio" value="{{ sweep_dir }}" class="radio-experiment experiment-select">
+        <div class="sidebar-item-text" data-tooltip="{{ sweep_dir }}">{{ sweep_dir }}</div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="tab-title" id="sweeps-title">Hyperparameter Sweep</div>
+    <div id="main-content-container">
+        <!-- Container for displaying a single metric for training runs on the current page -->
+        <div id="metric-display">
+            <div class="sweep-chart-container">
+                <canvas id="sweep-metric-chart" class="experiment-metric-chart"></canvas>
+            </div>
+            <!-- For choosing the metric to display -->
+            <div id="metric-choice-container">
+                <div style="font-weight: 400">Metric to display</div>
+                <div class="select">
+                    <select id="metric-choice" name="metric-choice">
+                        {% for metric_name in all_metrics %}
+                            <option value="{{ metric_name }}">{{ metric_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contains a description on how the sweep was set up -->
+        <div id="sweep-summary-container">
+            <div id="sweep-summary-title">Hyperparameter Sweep Summary</div>
+            <!-- Contains the defined configuration for each sweep parameter -->
+            <div id="sweep-summary-body" class="scroll">
+                <!-- Script which contained main code of the experiment -->
+                <div class="sweep-config-item" id="main_script_name">
+                    <div class="sweep-keys-container">
+                        Main Script Name
+                    </div>
+                    <div class="sweep-values-container">
+                    </div>
+                </div>
+                <!-- Maximum number of hyperparameter combinations -->
+                <div class="sweep-config-item" id="max_runs">
+                    <div class="sweep-keys-container">
+                        Max runs
+                    </div>
+                    <div class="sweep-values-container">
+                    </div>
+                </div>
+                <!-- Metric to optimize -->
+                <div class="sweep-config-item" id="optimization_metric">
+                    <div class="sweep-keys-container">
+                        Optimization Metric
+                    </div>
+                    <div class="sweep-values-container">
+                    </div>
+                </div>
+                <!-- Optimization goal: {'max', 'min'} -->
+                <div class="sweep-config-item" id="optimization_goal">
+                    <div class="sweep-keys-container">
+                        Optimization Goal
+                    </div>
+                    <div class="sweep-values-container">
+                    </div>
+                </div>
+                <!-- Description of each hyperparameter's sampling procedure -->
+                <div class="sweep-config-item" id="hyperparameters" style="height: auto; border-bottom: none;">
+                    <div class="sweep-keys-container">
+                        Hyperparameters
+                    </div>
+                    <table id="hyperparam-desc-table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description of each training run (hyperparameter combination) -->
+    <div id="runs-desc-outer">
+        <div id="runs-desc-title">Sampled hyperparameter combinations</div>
+        <div id="runs-desc-inner" class="scroll">
+            <!-- Each row is a separate run description -->
+            <table id="runs-table">
+                <tr id="table-header">
+                </tr>
+            </table>
+        </div>
+        <button id="prev-runs-btn" class="run-nav-btn"> Prev </button>
+        <button id="next-runs-btn" class="run-nav-btn"> Next </button>
+    </div>
+{% endblock %}
+
+{% block page_script %}
+    <script src="{{ url_for('static', filename='js/sweeps.js') }}" defer></script>
+{% endblock %}
