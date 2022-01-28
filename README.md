@@ -3,7 +3,7 @@
 ML Tracking Ops represents an MLOps Python library/platform which can be used for tracking machine learning projects. This platform enables users to track distinct training runs and complete hyperparameter sweeps.</br>
 
 ### ML Tracking Ops:
-* Exposes an API for the user which enables them to log Machine Learning/Data Science metrics during training
+* Exposes an API to the user which enables them to log Machine Learning/Data Science metrics during training
 * Enables users to initiate a hyperparameter sweep and log the sweep artifacts
 * Enables users to start an interactive web app for visualizing the experiment results. In this app they can
 compare different experiments and visualize different metrics
@@ -19,7 +19,7 @@ compare different experiments and visualize different metrics
 
 ## Simplest form of tracking runs
 
-Below we can see an example of how we can track an experiment in PyTorch
+Below we can see a PyTorch example of how we can track an experiment using ML-Tracking-Ops.
 ```python
 
 from ml_tracking_ops.experiment.logger import ExperimentLogger
@@ -70,11 +70,6 @@ ml-tracking-ops --run_sweep=True --logdir=runs
 
 See image below for an example.
 
-<p align="left" id="sweeps-structure">
-  <img src="imgs\sweeps_structure.PNG" height="50px" width="495px"/>
-</p>
-
-
 * On the other hand specifying the `--run_sweep=True` is necessary since not passing this argument will result in the value `False` which would lead to starting the ML Tracking Ops [web app](#ml-tracking-ops-web-app)
 
 ### Sweep configuration file
@@ -121,7 +116,7 @@ Below we can see an example of the configuration file. The JSON object keys `mai
 
 * In the example above we can see that hyperparameters we wish to explore must be defined in a specific format. Each hyperparameter must have a key `type` which can take values of `uniform` which represents a *continuous parameter*, or `choice` which represents a discrete parameter. 
 The other keys like `min`, `max`, `candidates` are required for the according hyperparameter type i.e. `min` and `max` are required for using `uniform` sampling and `candidates` is required when using a discrete sampling.
-Hyperparameters can have any name the user wants them to have. *Note: these names must match with the expected hyperparameter names in the script specified with the `main_script_name.py`.
+Hyperparameters can have any name the user wants them to have. *Note: these names must match with the expected hyperparameter names in the script specified with the* `main_script_name.py`.
 
 * We should specify if we wish to apply the *EarlyStopping* strategy to each of the training runs. If we set the property `early_stopping` to `true`, then we must specify the other properties as well:
     * `optimization_metric` The metric which we need to track to see in order to decide should the `EarlyStopping` event occur
