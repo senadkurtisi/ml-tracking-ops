@@ -1,0 +1,3 @@
+recursive-include ml_tracking_ops/ml_tracking_ops/templates *
+recursive-include ml_tracking_ops/ml_tracking_ops/static *
+recursive-include ml_tracking_ops/ml_tracking_ops/static/js *
