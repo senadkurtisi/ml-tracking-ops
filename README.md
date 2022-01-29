@@ -1,5 +1,10 @@
-# ML Tracking Ops
+<div align="center">
+  <img src="imgs\logo.png" width="771.75px" height="283.5">
+</div>
 
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-397/)
+
+</br>
 ML Tracking Ops represents an MLOps Python library/platform which can be used for tracking machine learning projects. This platform enables users to track distinct training runs and complete hyperparameter sweeps.</br>
 
 ### ML Tracking Ops:
