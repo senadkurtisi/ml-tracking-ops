@@ -18,6 +18,7 @@ compare different experiments and visualize different metrics
 * [Simplest form of tracking runs](#simplest-form-of-tracking-runs)
 * [Hyperparameter Sweeps](#hyperparameter-sweeps)
 * [ML Tracking Ops Web App](#ml-tracking-ops-web-app)
+  * [Demo](#short-demos)
 * [An Important Note](#an-important-note)
 * [Licence](#licence)
 
