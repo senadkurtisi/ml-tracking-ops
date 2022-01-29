@@ -25,9 +25,10 @@ compare different experiments and visualize different metrics
 
 ## Simplest form of tracking runs
 
+Below we can see a PyTorch example of how we can track an experiment using ML-Tracking-Ops.
+
 ML Tracking Ops is *library agnostic*, i.e. you do not have to use PyTorch. As long as the `ExperimentLogger.add_scalar` is provided with a simple `float` the experiment logging process will be possible.
 
-Below we can see a PyTorch example of how we can track an experiment using ML-Tracking-Ops.
 ```python
 
 from ml_tracking_ops.experiment.logger import ExperimentLogger
@@ -54,7 +55,7 @@ for epoch in range(max_epochs):
 
 ```
 
-When an instance of `ExperimentLogger` is created a directory with the name corresponding to the argument `logdir` is created (if it didn't previously exist). In this `logdir` directory a new directory gets created which corresponds to the time the instance of `ExperimentLogger` was created. This directory contains logs related to the training run start at the time indicated by the directory name. Each of these directories contains a single `.dat` file which contains time-series logs for each metric logged during that particular training run. See image below for an example.
+When an instance of `ExperimentLogger` is created a directory with the name corresponding to the argument `logdir` is created (if it didn't previously exist). In this `logdir` directory a new directory gets created which corresponds to the time the instance of `ExperimentLogger` was created. This directory contains logs related to the training run started at the time indicated by the directory name. Each of these directories contains a single `.dat` file which contains time-series logs for each metric logged during that particular training run. See image below for an example.
 
 <p align="left" id="runs-structure">
   <img src="imgs\runs_structure.PNG" height="69px" width="495px"/>
@@ -65,7 +66,7 @@ Each of these folders represents a different training run (possibly after changi
 ## Hyperparameter Sweeps
 
 ML Tracking Ops enables users to run a hyperparameter sweep for their machine learning pipeline.
-This is relatively easy to do since all you need is definining a simple configuration file and an argument parser.
+This is relatively easy to do since all you need is defining a simple configuration file and an argument parser.
 </b>
 After defining those two things we can start the hyperparameter sweep with a simple command
 ```bash
@@ -121,12 +122,12 @@ Below we can see an example of the configuration file. The JSON object keys `mai
 ```
 
 * In the example above we can see that hyperparameters we wish to explore must be defined in a specific format. Each hyperparameter must have a key `type` which can take values of `uniform` which represents a *continuous parameter*, or `choice` which represents a *discrete parameter*. 
-The other keys like `min`, `max`, `candidates` are required for the according hyperparameter type i.e. `min` and `max` are required for using `uniform` sampling and `candidates` is required when using a *discrete* sampling.
+The other keys like `min`, `max`, `candidates` are required for the according hyperparameter type i.e. `min` and `max` are required for using `uniform` sampling and `candidates` is required when using a `discrete` sampling.
 Hyperparameters can have any name the user wants them to have. *Note: these names must match with the expected hyperparameter names in the script specified with the* `main_script_name.py`.
 
 * We should specify if we wish to apply the *EarlyStopping* strategy to each of the training runs. If we set the property `early_stopping` to `true`, then we must specify the other properties as well:
-    * `optimization_metric` The metric which we need to track in order to decide should the `EarlyStopping` event occur
-    * `early_stopping_patience` represents the maximum number of steps (during which the metric was logged) during which the metric specified by the `optimization_metric` parameter is allowed not to improve. When this threshold is reached, `EarlyStopping` event triggers and the training process (for the current hyperparameter combination) terminates.
+    * `optimization_metric` The metric which we need to track in order to decide should the *EarlyStopping* event occur
+    * `early_stopping_patience` represents the maximum number of steps (during which the metric was logged) during which the metric specified by the `optimization_metric` parameter is allowed not to improve. When this threshold is reached, *EarlyStopping* event triggers and the training process (for the current hyperparameter combination) terminates.
     * `optimization_goal` This parameter serves as a way to keep track if the metric has improved or not. It can take the values of `max` and `min` which correspond to maximization and minimization of the `optimization_metric`, respectively.
 
 
@@ -141,7 +142,7 @@ In each training run we sample a hyperparameter combination according to the pre
 
 This means that in order to use the exact sampled values of these hyperparameters we need to have an argument parser instance inside of our training script. *This argument parser needs to be able to accept the arguments for which the names are equal to the ones defined in the* `experiment_cfg.json` *in the* `hyperparameters` *section*.
 
-Below we can see an exaple of this argument parser. This parser was designed in order to be able to accept hyperparameters defined in the `experiment_cfg.json` example above.
+Below we can see an example of this argument parser. This parser was designed in order to be able to accept hyperparameters defined in the `experiment_cfg.json` example above.
 
 ```python
 
@@ -214,7 +215,7 @@ This table contains description of every training run started during the sweep. 
 </p>
 
 #### **A metric chart**
-As we can see below, on this chart we can see the selected metric for every run that is present on the *current* page of the table. As we can see below `EarlyStopping` event was triggered for some the runs present on the current page.
+As we can see below, on this chart we can see the selected metric for every run that is present on the *current* page of the table. As we can see below *EarlyStopping* event was triggered for some the runs present on the current page.
 <p align="left">
   <img src="imgs\metric_chart_sweeps.png" width="490px" height="375px"/>
 </p>
@@ -228,6 +229,7 @@ As we can see below, on this chart we can see the selected metric for every run 
 https://user-images.githubusercontent.com/19266082/151616781-2aef9fec-5bb9-4c22-9823-553e95bf34c4.mp4
 
 
+</br>
 
 * Here is a short demo of usage of [Sweeps](#sweeps-section) tab
 
