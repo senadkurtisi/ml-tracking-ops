@@ -5,6 +5,8 @@ import numpy.random as np_random
 
 
 class HyperparameterSampler:
+    """Base class for sampler of hyperparameter values."""
+
     def __init__(self):
         self.sampler_type = None
 
@@ -19,6 +21,8 @@ class HyperparameterSampler:
 
 
 class Choice(HyperparameterSampler):
+    """Sampler for discrete hyperparameters."""
+
     def __init__(self, hyperparameter_values: Union[List, Tuple]):
         assert type(hyperparameter_values in [List, Tuple]), \
             f"Invalid hyperparameter list type. Expected List or Tuple but received {type(hyperparameter_values)}"
@@ -27,6 +31,7 @@ class Choice(HyperparameterSampler):
         self.sampler_type = "choice"
 
     def sample(self):
+        """Samples a hyperparameter value."""
         return choice(self._hyperparameter_values)
     
     def get_str_representation(self):
@@ -36,6 +41,8 @@ class Choice(HyperparameterSampler):
 
 
 class Uniform(HyperparameterSampler):
+    """Sampler for continuous hyperpameter."""
+
     def __init__(self, lower_bound: Union[float, int], upper_bound: Union[float, int]):
         assert isinstance(lower_bound, float), \
             f"Invalid type for lower_bound parameter. Expected float or int but received {type(lower_bound)}"
@@ -47,6 +54,7 @@ class Uniform(HyperparameterSampler):
         self.sampler_type = "uniform"
 
     def sample(self):
+        """Samples a hyperparameter value."""
         return np_random.uniform(low=self._lower_bound, high=self._upper_bound)
 
     def get_str_representation(self):
