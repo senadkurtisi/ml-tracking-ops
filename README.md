@@ -24,6 +24,8 @@ compare different experiments and visualize different metrics
 
 ## Simplest form of tracking runs
 
+ML Tracking Ops is *library agnostic*, i.e. you do not have to use PyTorch. As long as the `ExperimentLogger.add_scalar` is provided with a simple `float` the experiment logging process will be possible.
+
 Below we can see a PyTorch example of how we can track an experiment using ML-Tracking-Ops.
 ```python
 
@@ -57,7 +59,7 @@ When an instance of `ExperimentLogger` is created a directory with the name corr
   <img src="imgs\runs_structure.PNG" height="69px" width="495px"/>
 </p>
 
-Each of these folders represents a different training run (possibly after changing some hyperparameters).
+Each of these folders represents a different training run (possibly after changing some hyperparameters). This `logdir` directory should be used to group different training runs so they can be easily compared by using the ML Tracking Ops [web app](#ml-tracking-ops-web-app)
 
 ## Hyperparameter Sweeps
 
@@ -69,11 +71,9 @@ After defining those two things we can start the hyperparameter sweep with a sim
 ml-tracking-ops --run_sweep=True --logdir=runs
 ```
 
-* Passing the argument `logdir` is not mandatory since it's it will default to the string `runs`.
+* Passing the argument `logdir` is not mandatory since it it will default to the string `runs`.
 * When the sweep is started a directory with the name corresponding to the argument `logdir` is created (if it didn't previously exist). In this `logdir` directory a new directory gets created which corresponds to the time the sweep was started. This directory contains a `experiment_description.json` file which is automatically created and describes the configuration of the sweep (*this is used by the [web app](#ml-tracking-ops-web-app) and* ***SHOULD NOT*** *be deleted*).
-* Besides this file a separate `.dat` file gets created for each hyperparameter combination tried. This file contains time-series logs created by the `ExperimentLogger` instance inside of the training script specified in the configuration file. This file is named by the timestamp at which the training process for the new hyperparameter combination was started.
-
-See image below for an example.
+* Besides this file a separate `.dat` file gets created for each hyperparameter combination tried. These files contain time-series logs created by the `ExperimentLogger` instances created inside of the training script specified in the configuration file every time a new training run is started. This file is named by the timestamp at which the training process for the new hyperparameter combination was started.
 
 * On the other hand specifying the `--run_sweep=True` is necessary since not passing this argument will result in the value `False` which would lead to starting the ML Tracking Ops [web app](#ml-tracking-ops-web-app)
 
@@ -119,13 +119,13 @@ Below we can see an example of the configuration file. The JSON object keys `mai
 
 ```
 
-* In the example above we can see that hyperparameters we wish to explore must be defined in a specific format. Each hyperparameter must have a key `type` which can take values of `uniform` which represents a *continuous parameter*, or `choice` which represents a discrete parameter. 
-The other keys like `min`, `max`, `candidates` are required for the according hyperparameter type i.e. `min` and `max` are required for using `uniform` sampling and `candidates` is required when using a discrete sampling.
+* In the example above we can see that hyperparameters we wish to explore must be defined in a specific format. Each hyperparameter must have a key `type` which can take values of `uniform` which represents a *continuous parameter*, or `choice` which represents a *discrete parameter*. 
+The other keys like `min`, `max`, `candidates` are required for the according hyperparameter type i.e. `min` and `max` are required for using `uniform` sampling and `candidates` is required when using a *discrete* sampling.
 Hyperparameters can have any name the user wants them to have. *Note: these names must match with the expected hyperparameter names in the script specified with the* `main_script_name.py`.
 
 * We should specify if we wish to apply the *EarlyStopping* strategy to each of the training runs. If we set the property `early_stopping` to `true`, then we must specify the other properties as well:
-    * `optimization_metric` The metric which we need to track to see in order to decide should the `EarlyStopping` event occur
-    * `early_stopping_patience` represents the maximum number of steps (in which the metric was logged) during which the metric specified by the `optimization_metric` parameter is allowed not to improve. When this threshold is reached, `EarlyStopping` event triggers and the training process (for the current hyperparameter combination) terminates.
+    * `optimization_metric` The metric which we need to track in order to decide should the `EarlyStopping` event occur
+    * `early_stopping_patience` represents the maximum number of steps (during which the metric was logged) during which the metric specified by the `optimization_metric` parameter is allowed not to improve. When this threshold is reached, `EarlyStopping` event triggers and the training process (for the current hyperparameter combination) terminates.
     * `optimization_goal` This parameter serves as a way to keep track if the metric has improved or not. It can take the values of `max` and `min` which correspond to maximization and minimization of the `optimization_metric`, respectively.
 
 
@@ -138,7 +138,7 @@ Hyperparameters can have any name the user wants them to have. *Note: these name
 In each training run we sample a hyperparameter combination according to the previously specified sampling preferences. After this step your training script specified in the `main_script_name` in the `experiment_cfg.json` file is started as a separate *subprocess* and sampled hyperparameters are passed to it in the form of *command line arguments*.
 </br>
 
-This means that in order to use the exact sampled values of these hyperparameters we need to have an argument parser instance inside of our training script. *This argument parser needs to be able to accept the arguments for which the names are equal to the ones defined in the `experiment_cfg.json` in the `hyperparameters` section.
+This means that in order to use the exact sampled values of these hyperparameters we need to have an argument parser instance inside of our training script. *This argument parser needs to be able to accept the arguments for which the names are equal to the ones defined in the* `experiment_cfg.json` *in the* `hyperparameters` *section*.
 
 Below we can see an exaple of this argument parser. This parser was designed in order to be able to accept hyperparameters defined in the `experiment_cfg.json` example above.
 
@@ -167,7 +167,7 @@ We can start the ML Tracking Ops web app by running a simple command
 ml-tracking-ops --logdir=runs
 ```
 
-The `logdir` argument represents the directory which contains the experiment and sweep logs which we would like to obderve and analyze.
+The `logdir` argument represents the directory which contains the experiment and sweep logs which we would like to observe and analyze.
 Passing the `logdir` argument is optional since not passing it will default to the string `runs` but be aware of this behavior since the directory `runs` may not contain the logs you are interested in or may not exist at all!
 
 After running the previous command our app starts on a local server `127.0.0.1:5000` or `localhost:5000`. Visiting any of these two addresses will result to immediate redirect to a page where different experiment runs are properly visualized. An example of a page you would see when you start the app is given below.
@@ -198,7 +198,7 @@ Below we can see an example of how this tab can look like
   <img src="imgs\sweeps_example.PNG" height="410px" width="830px"/>
 </p>
 
-When a sweep is selected all of the data relevant for that sweep is displayed. That data includes:
+When a sweep is selected all of the data relevant for that sweep is displayed.
 
 #### **Hyperparameter Sweep Summary**
 This section describes the content of the `experiment_cfg.json` file in a structured and visually appealing way. This section gets automatically created.
